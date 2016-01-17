@@ -1,0 +1,1 @@
+/usr/bin/java -Dconf.http.port=$SERVICE_PORT -jar /uberjar.jar
