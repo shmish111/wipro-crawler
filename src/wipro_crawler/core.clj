@@ -41,12 +41,12 @@
        (h/as-hickory)
        (tree-seq identity :content)
        (sequence
-         (comp (filter #(contains? #{:a :img} (:tag %)))
-               (map (comp href-or-src :attrs))
-               (remove nil?)
-               (map (partial normalize-url site))
-               (remove nil?)
-               (filter (partial same-site site))))
+        (comp (filter #(contains? #{:a :img} (:tag %)))
+              (map (comp href-or-src :attrs))
+              (remove nil?)
+              (map (partial normalize-url site))
+              (remove nil?)
+              (filter (partial same-site site))))
        set))
 
 (defn crawl-page!
@@ -94,10 +94,10 @@
 
 (def handler
   (api
-    (GET* "/ping" [] {:status 200 :body "pong!"})
-    (GET* "/" {{url :url} :params} (branch (valid-url? url)
-                                           (fn [e] {:status 400 :body e})
-                                           (fn [v] {:status 200 :body (crawl-site! v)})))))
+   (GET* "/ping" [] {:status 200 :body "pong!"})
+   (GET* "/" {{url :url} :params} (branch (valid-url? url)
+                                          (fn [e] {:status 400 :body e})
+                                          (fn [v] {:status 200 :body (crawl-site! v)})))))
 
 (defn -main
   [& args]
